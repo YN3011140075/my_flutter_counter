@@ -107,6 +107,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
               },
             ),
+
+            TextButton(
+              child: Text("open SwitchAndCheckBoxTestRoute"),
+              onPressed: () {
+                //导航到新路由
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) {
+                    return SwitchAndCheckBoxTestRoute();
+                  }),
+                );
+              },
+            ),
           ],
         ),
       ),
@@ -127,8 +140,72 @@ class NewRoute extends StatelessWidget {
         title: Text("New route"),
       ),
       body: Center(
-        child: Text("This is new route"),
+        child: Wrap(
+          spacing: 8.0, // 主轴(水平)方向间距
+          runSpacing: 4.0, // 纵轴（垂直）方向间距
+          alignment: WrapAlignment.center, //沿主轴方向居中
+          children: <Widget>[
+            Chip(
+              avatar: CircleAvatar(backgroundColor: Colors.blue, child: Text('A')),
+              label: Text('Hamilton'),
+            ),
+            Chip(
+              avatar: CircleAvatar(backgroundColor: Colors.blue, child: Text('M')),
+              label: Text('Lafayette'),
+            ),
+            Chip(
+              avatar: CircleAvatar(backgroundColor: Colors.blue, child: Text('H')),
+              label: Text('Mulligan'),
+            ),
+            Chip(
+              avatar: CircleAvatar(backgroundColor: Colors.blue, child: Text('J')),
+              label: Text('Laurens'),
+            ),
+          ],
+        )
       ),
+    );
+  }
+}
+
+class SwitchAndCheckBoxTestRoute extends StatefulWidget {
+  @override
+  _SwitchAndCheckBoxTestRouteState createState() => _SwitchAndCheckBoxTestRouteState();
+}
+
+class _SwitchAndCheckBoxTestRouteState extends State<SwitchAndCheckBoxTestRoute> {
+  bool _switchSelected=true; //维护单选开关状态
+  bool _checkboxSelected=true;//维护复选框状态
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Switch and Check Box Test Route"),
+        ),
+        body: Center(
+          child: Column(
+            children: <Widget>[
+              Switch(
+                value: _switchSelected,//当前状态
+                onChanged:(value){
+                  //重新构建页面
+                  setState(() {
+                    _switchSelected=value;
+                  });
+                },
+              ),
+              Checkbox(
+                value: _checkboxSelected,
+                activeColor: Colors.red, //选中时的颜色
+                onChanged:(value){
+                  setState(() {
+                    _checkboxSelected=value!;
+                  });
+                } ,
+              )
+            ],
+          ),
+        )
     );
   }
 }
